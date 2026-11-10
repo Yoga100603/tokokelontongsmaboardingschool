@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+body {
+    -webkit-tap-highlight-color: transparent;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+/* ── Komponen form (setara components/ui.tsx versi Next.js) ───────── */
+@layer components {
+    .input {
+        @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none disabled:bg-slate-100;
+    }
+    .label {
+        @apply mb-1 block text-xs font-semibold text-slate-700;
+    }
+    .btn {
+        @apply inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50;
+    }
+    .btn-kecil {
+        @apply px-2.5 py-1.5 text-xs;
+    }
+    .btn-utama {
+        @apply bg-emerald-600 text-white shadow-sm hover:bg-emerald-700;
+    }
+    .btn-sekunder {
+        @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-50;
+    }
+    .btn-bahaya {
+        @apply bg-rose-600 text-white shadow-sm hover:bg-rose-700;
+    }
+    .btn-hantu {
+        @apply text-slate-600 hover:bg-slate-100;
+    }
+    .kartu {
+        @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+    }
+}
+
+/* Cetak struk: hanya #struk-cetak yang tampil. Ukuran kertas dipilih kasir
+   (data-kertas di <html>): printer struk 58/80mm atau printer biasa A4. */
+@page {
+    margin: 4mm;
+}
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #struk-cetak,
+    #struk-cetak * {
+        visibility: visible;
+    }
+    #struk-cetak {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 58mm;
+        font-size: 11px;
+    }
+    html[data-kertas='80mm'] #struk-cetak {
+        width: 76mm;
+        font-size: 12px;
+    }
+    html[data-kertas='a4'] #struk-cetak {
+        width: 100mm;
+        font-size: 13px;
+    }
+}
